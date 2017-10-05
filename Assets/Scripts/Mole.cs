@@ -12,6 +12,10 @@ public class Mole : MonoBehaviour {
     private float lerpTime = 0.5f;
     private float currentLerpTime = 0f;
 
+    public bool isOutOfHole = false;
+    public bool isInHole = false;
+    public bool isHitByHammer = false;
+
 	void Start () {
         startingPosition = transform.position;
         endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
@@ -38,7 +42,7 @@ public class Mole : MonoBehaviour {
         }
     }
 
-    private void Popup()
+    public void Popup()
     {
         currentLerpTime += Time.deltaTime;
         if (currentLerpTime >= lerpTime)
@@ -56,7 +60,7 @@ public class Mole : MonoBehaviour {
         }
     }
 
-    private void Hide()
+    public void Hide()
     {
         currentLerpTime += Time.deltaTime;
         if (currentLerpTime >= lerpTime)
@@ -73,5 +77,20 @@ public class Mole : MonoBehaviour {
             moveDown = false;
             currentLerpTime = 0;
         }
+    }
+
+    public void RandomNoteGenerator()
+    {
+
+    }
+
+    public void StartNoteTimer()
+    {
+
+    }
+
+    public void CheckRightNote()
+    {
+
     }
 }
