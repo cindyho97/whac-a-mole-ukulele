@@ -16,6 +16,11 @@ public class Mole : MonoBehaviour {
     public bool isInHole = false;
     public bool isHitByHammer = false;
 
+    private float noteTimer;
+    private int noteTimerSec;
+    private bool startTimer = false;
+    private int waitTime = 5;
+
 	void Start () {
         startingPosition = transform.position;
         endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
@@ -40,6 +45,12 @@ public class Mole : MonoBehaviour {
         {
             Hide();
         }
+        if (startTimer)
+        {
+            noteTimer += Time.deltaTime;
+            noteTimerSec = (int)noteTimer % 60;
+        }
+        
     }
 
     public void Popup()
@@ -84,10 +95,29 @@ public class Mole : MonoBehaviour {
     public void StartNoteTimer()
     {
         string randomNote = Managers.Note.GetRandomNote();
+        startTimer = true;
+
+        while(noteTimerSec < waitTime)
+        {
+            if (SerialRead.databyteRead)
+            {
+                CheckRightNote();
+            }
+            else
+            {
+                // no input note detected
+            }
+        }
     }
 
     public void CheckRightNote()
     {
+        valueToNoteName(Managers.SerialRead.CurrentNoteValue);
+    }
 
+    private string valueToNoteName(int noteValue)
+    {
+        string noteName = "";
+        return noteName;
     }
 }

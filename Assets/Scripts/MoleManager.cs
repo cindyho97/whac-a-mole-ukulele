@@ -29,7 +29,7 @@ public class MoleManager : MonoBehaviour {
 
             currentMole.isOutOfHole = true;
             currentMole.Popup();
-
+            currentMole.StartNoteTimer();
         }
 
     }
