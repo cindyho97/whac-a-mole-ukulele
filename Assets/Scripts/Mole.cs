@@ -57,6 +57,7 @@ public class Mole : MonoBehaviour {
         {
             moveUp = false;
             currentLerpTime = 0;
+            isOutOfHole = true;
         }
     }
 
@@ -76,6 +77,7 @@ public class Mole : MonoBehaviour {
         {
             moveDown = false;
             currentLerpTime = 0;
+            isInHole = true;
         }
     }
 

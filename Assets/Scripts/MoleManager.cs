@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoleManager : MonoBehaviour {
 
     public Mole[] moles;
-    public bool noMoleStanding = false; // There is no mole just standing out of hole --> there can only be one mole standing at a time
+    public bool noneOutOfHole = false; // No mole is completely out of hole --> there can only be one mole standing at a time
     private byte nrOfMoles = 5;
 
 	// Use this for initialization
@@ -16,9 +16,9 @@ public class MoleManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (noMoleStanding)
+        if (noneOutOfHole)
         {
-            noMoleStanding = false;
+            noneOutOfHole = false;
             int randomNr = Random.Range(0, 5);
             Debug.Log("randomnr: " + randomNr);
             Mole currentMole = moles[randomNr];
@@ -30,7 +30,6 @@ public class MoleManager : MonoBehaviour {
             currentMole.isOutOfHole = true;
             currentMole.Popup();
             //currentMole.RandomNoteGenerator
-            //current
         }
 
     }

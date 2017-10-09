@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour  {
 
     public void StartGame()
     {
-        Managers.MoleManager.noMoleStanding = true;
+        Managers.MoleManager.noneOutOfHole = true;
     }
 
     private void ShowWinPopup()

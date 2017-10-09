@@ -121,7 +121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -173,7 +173,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -100
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -225,7 +225,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -374,7 +374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &446174371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moles: []
-  noMoleStanding: 0
+  nonOutOfHole: 0
 --- !u!1 &1032297238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,7 +1442,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1497,7 +1497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1620064936
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1606,7 +1606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -100
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4782441221111790, guid: 1ca0cc368bd390c45ad95a2de8b46da2, type: 2}
       propertyPath: m_LocalPosition.z

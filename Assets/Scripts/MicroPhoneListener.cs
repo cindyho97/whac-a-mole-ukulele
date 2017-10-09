@@ -10,7 +10,7 @@ public class MicroPhoneListener : MonoBehaviour
     const float MINVOLUMEPEAK = 0.1f;
     const int LOWESTFREQUENCY= 60;
     const int HIGHESTFREQUENCY = 460;
-    const int MICRONUMBER = 0; //index in the microphones array connected to the laptop
+    //const int MICRONUMBER = 0; //index in the microphones array connected to the laptop
 
     private float[] noteFrequencies = new float[88]; //containing the frequencies of the equal tempered scale (12 semitones f2=f1*POW(2;1/12))
     private float[] noteFrequenciesMax = new float[88];//containing upper frequencies considering the accuracy in cents
@@ -38,7 +38,7 @@ public class MicroPhoneListener : MonoBehaviour
          "C8"
     };
     //an audio source also attached to the same object as this script is
-    AudioSource src;
+    //AudioSource src;
 
     //make an audio mixer from the "create" menu, then drag it into the public field on this script.
     //double click the audio mixer and next to the "groups" section, click the "+" icon to add a 
@@ -49,8 +49,8 @@ public class MicroPhoneListener : MonoBehaviour
     //then back in the audiomixer window, in the corner click "Exposed Parameters", click on the "MyExposedParameter"
     //and rename it to "Volume"
     //public AudioMixer masterMixer;
-    private string[] microphones= {"","","","","","","","","","" };
-    private string microphone;
+    //private string[] microphones= {"","","","","","","","","","" };
+    //private string microphone;
 
     private int minSamplingFreq, maxSamplingFreq;
     private float[] sampleArray;
@@ -80,39 +80,39 @@ public class MicroPhoneListener : MonoBehaviour
         Debug.Log("min " + noteFrequenciesMin[36] + " freq " + noteFrequencies[36] + " max " + noteFrequenciesMax[36]);
 
         int index = 0;
-        foreach (string device in Microphone.devices)
-        {
-            //Debug.Log(device);
-            microphones[index]= device;
-            index++;
-            if (index == 10)
-            {
-                Debug.Log("Max. 1O input devices...");
-                break;
-            }
-        }
-        foreach (string device  in microphones)
-        {
-            if (device != "")
-            {
+        //foreach (string device in Microphone.devices)
+        //{
+        //    //Debug.Log(device);
+        //    microphones[index]= device;
+        //    index++;
+        //    if (index == 10)
+        //    {
+        //        Debug.Log("Max. 1O input devices...");
+        //        break;
+        //    }
+        //}
+        //foreach (string device  in microphones)
+        //{
+        //    if (device != "")
+        //    {
                 
-                Microphone.GetDeviceCaps(device, out minSamplingFreq, out maxSamplingFreq);
-                Debug.Log(device + " minSamplingFreq: " + minSamplingFreq + " maxSamplingFreq: " + maxSamplingFreq);
-            }
-        }
-        //choose microphone
-        microphone = microphones[MICRONUMBER];
-        Microphone.GetDeviceCaps(microphone, out minSamplingFreq, out maxSamplingFreq);
-        Debug.Log("Frequency: " + microphone + " = "+ maxSamplingFreq);
+        //        Microphone.GetDeviceCaps(device, out minSamplingFreq, out maxSamplingFreq);
+        //        Debug.Log(device + " minSamplingFreq: " + minSamplingFreq + " maxSamplingFreq: " + maxSamplingFreq);
+        //    }
+        //}
+        ////choose microphone
+        //microphone = microphones[MICRONUMBER];
+        //Microphone.GetDeviceCaps(microphone, out minSamplingFreq, out maxSamplingFreq);
+        //Debug.Log("Frequency: " + microphone + " = "+ maxSamplingFreq);
         //maxFreq is maximum sampling frequency: lengthOfLineRenderer and sampleArray have maxFreq/MINFREQ*2 samples 48000/60*2 = 1600 samples
         sampleArrayLength = maxSamplingFreq / LOWESTFREQUENCY*2;
         sampleArray = new float[sampleArrayLength]; 
         Debug.Log("number of samples = " + sampleArrayLength);
-        src = GetComponent<AudioSource>();
-        //remove any soundfile in the audiosource
-        src.clip = null;
-        //start recording from microphone in loop, 1 second is minimum, use maxFreq from selected microphone
-        src.clip = Microphone.Start(microphone, true, 1, maxSamplingFreq);
+        //src = GetComponent<AudioSource>();
+        ////remove any soundfile in the audiosource
+        //src.clip = null;
+        ////start recording from microphone in loop, 1 second is minimum, use maxFreq from selected microphone
+        //src.clip = Microphone.Start(microphone, true, 1, maxSamplingFreq);
     }
 
     void Update()
@@ -122,7 +122,7 @@ public class MicroPhoneListener : MonoBehaviour
         float baseFreq = 0.0f;
         string noteName = "";
         //src.timeSamples = 0;
-        src.clip.GetData(sampleArray, maxSamplingFreq / 2);//put the samples from the half of the recording of 1 second in the array (microphone stabilised)
+        //src.clip.GetData(sampleArray, maxSamplingFreq / 2);//put the samples from the half of the recording of 1 second in the array (microphone stabilised)
         //search max value in the sampleArray
         maxValue = maxValueSampleArray();
         if (maxValue > MINVOLUMEPEAK) //check if volume is acceptable and show samples
@@ -270,8 +270,8 @@ public class MicroPhoneListener : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        src.Stop();
-        src.clip = null;
-        Microphone.End(microphone);
+        //src.Stop();
+        //src.clip = null;
+        //Microphone.End(microphone);
     }
 }

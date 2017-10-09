@@ -17,7 +17,8 @@ public class SerialRead : MonoBehaviour
     private bool comportFound = false; //if comportFound is true the selected comport is open
     static private char databyte_in; //gelezen databyte van seriële poort
     static private bool databyteRead = false; //wordt true als er een databyte ontvangen is in seriële thread
-    private Int16 value;
+    private short previousNoteValue;
+    private short currentNoteValue;
 
     //threadrelated
     private bool stopSerialThread = false; //om de thread te kunnen stoppen
@@ -40,8 +41,14 @@ public class SerialRead : MonoBehaviour
         if (databyteRead) //als een databyte ontvangen is
         {
             databyteRead = false; //om volgende databyte te kunnen ontvangen
-            value = (short)databyte_in;
-            Debug.Log(value.ToString());
+
+            currentNoteValue = (short)databyte_in;
+            if(currentNoteValue > 0 && currentNoteValue != previousNoteValue)
+            {
+                Debug.Log(currentNoteValue.ToString());
+            }
+            
+            previousNoteValue = currentNoteValue;
 
             //Debug.Log(strOntvangen);
             //if (databyte_in != '\t')
@@ -57,7 +64,7 @@ public class SerialRead : MonoBehaviour
     }
 
 
-    void SerialThread() //de aparte thread is best nodig omdat we de timeout  lang moeten wachten voor we weten of er een karakter te ontvangen is
+    void SerialThread() //de aparte thread is best nodig omdat we de timeout lang moeten wachten voor we weten of er een karakter te ontvangen is
     {
         while (!stopSerialThread) //mooi afsluiten van de thread bij verlaten programma
         {
