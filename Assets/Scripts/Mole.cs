@@ -81,14 +81,9 @@ public class Mole : MonoBehaviour {
         }
     }
 
-    public void RandomNoteGenerator()
-    {
-
-    }
-
     public void StartNoteTimer()
     {
-
+        string randomNote = Managers.Note.GetRandomNote();
     }
 
     public void CheckRightNote()
