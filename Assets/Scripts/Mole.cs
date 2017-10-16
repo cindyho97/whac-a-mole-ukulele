@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 public class Mole : MonoBehaviour {
 
@@ -15,11 +16,16 @@ public class Mole : MonoBehaviour {
     public bool isOutOfHole = false;
     public bool isInHole = false;
     public bool isHitByHammer = false;
+    public bool playedRightNote = false;
+    public bool playedNote = false;
 
+    private static Timer noteTimer1;
     private float noteTimer;
-    private int noteTimerSec;
+    private static float noteTimerSec = 0;
     private bool startTimer = false;
-    private int waitTime = 5;
+    private static int waitTime = 5;
+    private static bool timerRunning;
+    private string randomNote;
 
 	void Start () {
         startingPosition = transform.position;
@@ -45,10 +51,30 @@ public class Mole : MonoBehaviour {
         {
             Hide();
         }
-        if (startTimer)
+
+        if (Input.GetKeyDown(KeyCode.T)) // start timer
         {
-            noteTimer += Time.deltaTime;
-            noteTimerSec = (int)noteTimer % 60;
+            Managers.SerialRead.CurrentNoteValue = 0;
+            Debug.Log("T is pressed");
+            StartNoteTimer();
+        }
+
+        if (timerRunning)
+        {
+            if (Managers.SerialRead.CheckNotePlayed())
+            {
+                Managers.SerialRead.noteDetected = false;
+                CheckPlayedNote();
+                timerRunning = false;
+                noteTimer1.Enabled = false;
+                Debug.Log("timer stopped");
+                noteTimerSec = 0;
+                UpdatePlayerStatus(playedRightNote);
+            }
+            else
+            {
+                Debug.Log("No note played");
+            }
         }
         
     }
@@ -94,30 +120,56 @@ public class Mole : MonoBehaviour {
 
     public void StartNoteTimer()
     {
-        string randomNote = Managers.Note.GetRandomNote();
-        startTimer = true;
+        //startTimer = true;
+        
+        Debug.Log("Start timer!");
+        randomNote = Managers.Note.GetRandomNote();
+        Debug.Log("random note: " + randomNote);
 
-        while(noteTimerSec < waitTime)
+
+        noteTimer1 = new Timer();
+        noteTimer1.Interval = 500;
+        noteTimer1.Elapsed += NoteTimer1_Elapsed;
+        noteTimer1.Enabled = true;
+        timerRunning = true;
+
+
+    }
+
+    private void NoteTimer1_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        noteTimerSec += .5f;
+        Debug.Log("timer sec: " + noteTimerSec);
+
+        if (noteTimerSec >= waitTime && timerRunning)
         {
-            if (SerialRead.databyteRead)
-            {
-                CheckRightNote();
-            }
-            else
-            {
-                // no input note detected
-            }
+            timerRunning = false;
+            noteTimer1.Enabled = false;
+            noteTimerSec = 0;
+            Debug.Log("timer stopped");
         }
     }
 
-    public void CheckRightNote()
+    private void CheckPlayedNote()
     {
-        valueToNoteName(Managers.SerialRead.CurrentNoteValue);
+        string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.CurrentNoteValue);
+        playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
+        Debug.Log("played note: " + notePlayed);
     }
 
-    private string valueToNoteName(int noteValue)
+    private void UpdatePlayerStatus(bool playedRightNote)
     {
-        string noteName = "";
-        return noteName;
+        if (playedRightNote)
+        {
+            Debug.Log("Score updated");
+            Messenger.Broadcast(GameEvent.UPDATE_SCORE);
+        }
+        else
+        {
+            Debug.Log("Lost life...");
+            Messenger.Broadcast(GameEvent.LOSE_LIFE);
+        }
     }
+
+
 }

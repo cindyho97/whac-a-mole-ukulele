@@ -19,6 +19,7 @@ public class SerialRead : MonoBehaviour
     static public bool databyteRead = false; //wordt true als er een databyte ontvangen is in seriële thread
     private short previousNoteValue;
     private short currentNoteValue;
+    public bool noteDetected;
 
     //threadrelated
     private bool stopSerialThread = false; //om de thread te kunnen stoppen
@@ -37,18 +38,30 @@ public class SerialRead : MonoBehaviour
 
     void Update()
     {
+        //CheckNotePlayed();
+    }
+
+    public bool CheckNotePlayed()
+    {
         if (databyteRead) //als een databyte ontvangen is
         {
             databyteRead = false; //om volgende databyte te kunnen ontvangen
 
             currentNoteValue = (short)databyte_in;
-            if(currentNoteValue > 0 && currentNoteValue != previousNoteValue)
+            Debug.Log(currentNoteValue.ToString());
+            if (currentNoteValue > 0 && currentNoteValue != previousNoteValue)
             {
                 Debug.Log(currentNoteValue.ToString());
+                previousNoteValue = currentNoteValue;
+                noteDetected = true;
             }
-            
-            previousNoteValue = currentNoteValue;
+            else
+            {
+                currentNoteValue = 0;
+                noteDetected = false;
+            }
         }
+        return noteDetected;   
     }
 
 
@@ -87,6 +100,7 @@ public class SerialRead : MonoBehaviour
     public int CurrentNoteValue
     {
         get { return currentNoteValue; }
+        set { currentNoteValue = (short)value; }
     }
 
     void OnApplicationQuit() //proper afsluiten van de thread
