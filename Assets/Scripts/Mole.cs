@@ -54,7 +54,6 @@ public class Mole : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.T)) // start timer
         {
-            Managers.SerialRead.CurrentNoteValue = 0;
             Debug.Log("T is pressed");
             StartNoteTimer();
         }
@@ -126,14 +125,12 @@ public class Mole : MonoBehaviour {
         randomNote = Managers.Note.GetRandomNote();
         Debug.Log("random note: " + randomNote);
 
-
         noteTimer1 = new Timer();
         noteTimer1.Interval = 500;
         noteTimer1.Elapsed += NoteTimer1_Elapsed;
         noteTimer1.Enabled = true;
+        ResetNoteValue();
         timerRunning = true;
-
-
     }
 
     private void NoteTimer1_Elapsed(object sender, ElapsedEventArgs e)
@@ -169,7 +166,13 @@ public class Mole : MonoBehaviour {
             Debug.Log("Lost life...");
             Messenger.Broadcast(GameEvent.LOSE_LIFE);
         }
+
+        ResetNoteValue();
     }
 
+    private void ResetNoteValue()
+    {
+        Managers.SerialRead.CurrentNoteValue = 0;
+    }
 
 }

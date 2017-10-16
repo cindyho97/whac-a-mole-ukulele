@@ -9,7 +9,8 @@ public class PlayerManager : MonoBehaviour  {
     public GameObject endImage;
     public GameObject winText;
     public GameObject loseText;
-    private byte lives = 5;
+    public Image[] hearts;
+    private byte lives;
     private ushort score;
 
 
@@ -29,18 +30,22 @@ public class PlayerManager : MonoBehaviour  {
         Messenger.RemoveListener(GameEvent.LEVEL_COMPLETE, ShowWinPopup);
     }
 
+    private void Start()
+    {
+        lives = (byte)hearts.Length;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("pressed space");
-            Messenger.Broadcast(GameEvent.LEVEL_COMPLETE);
+            //Messenger.Broadcast(GameEvent.LEVEL_COMPLETE);
+            LoseLife();
         }
     }
     private void LoseLife()
     {
         lives--;
-
+        hearts[lives].gameObject.SetActive(false);
         if(lives < 0)
         {
             lives = 0;
@@ -75,12 +80,12 @@ public class PlayerManager : MonoBehaviour  {
         loseText.SetActive(true);
     }
 
-    private void OnRestartButton()
+    public void OnRestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void OnQuitButton()
+    public void OnQuitButton()
     {
         Application.Quit();
     }
