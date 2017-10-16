@@ -12,9 +12,10 @@ public class NoteManager : MonoBehaviour {
 	void Start () {
         noteNames = new SortedList<string, int>
         {
-            {"D3", 72 },
-            {"G3", 45 },
-            {"B3", 29 }
+            {"D3", 72 }, {"G3", 45 }, {"B3", 29 },
+            {"E", 62 },  {"A", 37 },  {"C", 26 },
+            {"F", 52 }
+
         };
 	}
 	
@@ -46,7 +47,16 @@ public class NoteManager : MonoBehaviour {
                 noteName = noteNames.ElementAt(index).Key;
             }
         }
-        Debug.Log("played note name: " + noteName);
+
+        if(noteName == "")
+        {
+            Debug.Log("Note not detected");
+        }
+        else
+        {
+            Debug.Log("Played note name: " + noteName);
+        }
+        
         return noteName;
     }
 

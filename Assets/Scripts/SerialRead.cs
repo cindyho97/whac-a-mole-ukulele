@@ -38,7 +38,7 @@ public class SerialRead : MonoBehaviour
 
     void Update()
     {
-
+        CheckNotePlayed();
     }
 
     public bool CheckNotePlayed()
@@ -46,9 +46,9 @@ public class SerialRead : MonoBehaviour
         if (databyteRead) //als een databyte ontvangen is
         {
             databyteRead = false; //om volgende databyte te kunnen ontvangen
-
+            currentNoteValue = 0;
             currentNoteValue = (short)databyte_in;
-            Debug.Log(currentNoteValue.ToString());
+
             if (currentNoteValue > 0 && currentNoteValue != previousNoteValue)
             {
                 Debug.Log(currentNoteValue.ToString());

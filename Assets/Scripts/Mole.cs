@@ -19,8 +19,7 @@ public class Mole : MonoBehaviour {
     public bool playedRightNote = false;
     public bool playedNote = false;
 
-    private static Timer noteTimer1;
-    private float noteTimer;
+    private static Timer noteTimer;
     private static float noteTimerSec = 0;
     private bool startTimer = false;
     private static int waitTime = 5;
@@ -65,7 +64,7 @@ public class Mole : MonoBehaviour {
                 Managers.SerialRead.noteDetected = false;
                 CheckPlayedNote();
                 timerRunning = false;
-                noteTimer1.Enabled = false;
+                noteTimer.Enabled = false;
                 Debug.Log("timer stopped");
                 noteTimerSec = 0;
                 UpdatePlayerStatus(playedRightNote);
@@ -126,16 +125,16 @@ public class Mole : MonoBehaviour {
         randomNote = Managers.Note.GetRandomNote();
         Debug.Log("random note: " + randomNote);
 
-        noteTimer1 = new Timer();
-        noteTimer1.Interval = 500;
-        noteTimer1.Elapsed += NoteTimer1_Elapsed;
-        noteTimer1.Enabled = true;
+        noteTimer = new Timer();
+        noteTimer.Interval = 500;
+        noteTimer.Elapsed += NoteTimer_Elapsed;
+        noteTimer.Enabled = true;
         ResetNoteValue();
-        Debug.Log("current note value: " + Managers.SerialRead.currentNoteValue);
+
         timerRunning = true;
     }
 
-    private void NoteTimer1_Elapsed(object sender, ElapsedEventArgs e)
+    private void NoteTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
         noteTimerSec += .5f;
         Debug.Log("timer sec: " + noteTimerSec);
@@ -143,7 +142,7 @@ public class Mole : MonoBehaviour {
         if (noteTimerSec >= waitTime && timerRunning)
         {
             timerRunning = false;
-            noteTimer1.Enabled = false;
+            noteTimer.Enabled = false;
             noteTimerSec = 0;
             Debug.Log("timer stopped");
         }
@@ -168,8 +167,6 @@ public class Mole : MonoBehaviour {
             Debug.Log("Lost life...");
             Messenger.Broadcast(GameEvent.LOSE_LIFE);
         }
-
-        
     }
 
     private void ResetNoteValue()
