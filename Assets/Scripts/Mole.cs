@@ -74,6 +74,7 @@ public class Mole : MonoBehaviour {
             {
                 Debug.Log("No note played");
             }
+            ResetNoteValue();
         }
         
     }
@@ -130,6 +131,7 @@ public class Mole : MonoBehaviour {
         noteTimer1.Elapsed += NoteTimer1_Elapsed;
         noteTimer1.Enabled = true;
         ResetNoteValue();
+        Debug.Log("current note value: " + Managers.SerialRead.currentNoteValue);
         timerRunning = true;
     }
 
@@ -149,7 +151,7 @@ public class Mole : MonoBehaviour {
 
     private void CheckPlayedNote()
     {
-        string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.CurrentNoteValue);
+        string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.currentNoteValue);
         playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
         Debug.Log("played note: " + notePlayed);
     }
@@ -167,12 +169,11 @@ public class Mole : MonoBehaviour {
             Messenger.Broadcast(GameEvent.LOSE_LIFE);
         }
 
-        ResetNoteValue();
+        
     }
 
     private void ResetNoteValue()
     {
-        Managers.SerialRead.CurrentNoteValue = 0;
+        Managers.SerialRead.currentNoteValue = 0;
     }
-
 }

@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour  {
     public GameObject winText;
     public GameObject loseText;
     public Image[] hearts;
+    public Text scoreText;
     private byte lives;
     private ushort score;
 
@@ -59,7 +60,8 @@ public class PlayerManager : MonoBehaviour  {
 
     private void UpdateScore()
     {
-        score++;
+        score += 50;
+        scoreText.text = score.ToString();
     }
 
     public void StartGame()

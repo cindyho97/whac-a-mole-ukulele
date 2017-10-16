@@ -18,7 +18,7 @@ public class SerialRead : MonoBehaviour
     static private char databyte_in; //gelezen databyte van seriële poort
     static public bool databyteRead = false; //wordt true als er een databyte ontvangen is in seriële thread
     private short previousNoteValue;
-    private short currentNoteValue;
+    public short currentNoteValue;
     public bool noteDetected;
 
     //threadrelated
@@ -38,7 +38,7 @@ public class SerialRead : MonoBehaviour
 
     void Update()
     {
-        //CheckNotePlayed();
+
     }
 
     public bool CheckNotePlayed()
@@ -97,11 +97,6 @@ public class SerialRead : MonoBehaviour
         comportFound = true;
     }
 
-    public int CurrentNoteValue
-    {
-        get { return currentNoteValue; }
-        set { currentNoteValue = (short)value; }
-    }
 
     void OnApplicationQuit() //proper afsluiten van de thread
     {
