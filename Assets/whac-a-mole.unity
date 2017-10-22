@@ -975,6 +975,7 @@ MonoBehaviour:
   - {fileID: 587354146}
   - {fileID: 1871384164}
   - {fileID: 1855332550}
+  scoreText: {fileID: 716379461}
 --- !u!4 &796682031
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbe8fe993594f14c93bbad371f8d0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentNoteValue: 0
   noteDetected: 0
 --- !u!114 &796682035
 MonoBehaviour:
@@ -1622,6 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbe8fe993594f14c93bbad371f8d0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentNoteValue: 0
   noteDetected: 0
 --- !u!4 &1673521437
 Transform:

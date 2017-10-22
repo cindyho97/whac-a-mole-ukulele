@@ -22,7 +22,7 @@ public class Mole : MonoBehaviour {
     private static Timer noteTimer;
     private static float noteTimerSec = 0;
     private bool startTimer = false;
-    private static int waitTime = 5;
+    private static int waitTime = 10;
     private static bool timerRunning;
     private string randomNote;
 
@@ -124,7 +124,8 @@ public class Mole : MonoBehaviour {
         Debug.Log("Start timer!");
         randomNote = Managers.Note.GetRandomNote();
         Debug.Log("random note: " + randomNote);
-
+        // start moveUp animation
+        moveUp = true;
         noteTimer = new Timer();
         noteTimer.Interval = 500;
         noteTimer.Elapsed += NoteTimer_Elapsed;
@@ -145,6 +146,8 @@ public class Mole : MonoBehaviour {
             noteTimer.Enabled = false;
             noteTimerSec = 0;
             Debug.Log("timer stopped");
+            // moveDown animation 
+            moveDown = true;
         }
     }
 
@@ -167,6 +170,8 @@ public class Mole : MonoBehaviour {
             Debug.Log("Lost life...");
             Messenger.Broadcast(GameEvent.LOSE_LIFE);
         }
+        // moveDown animation
+        moveDown = true;
     }
 
     private void ResetNoteValue()
