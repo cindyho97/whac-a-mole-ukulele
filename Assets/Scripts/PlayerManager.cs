@@ -11,6 +11,9 @@ public class PlayerManager : MonoBehaviour  {
     public GameObject loseText;
     public Image[] hearts;
     public Text scoreText;
+    public GameObject startButton;
+
+    public bool gameEnded;
     private byte lives;
     private ushort score;
 
@@ -79,7 +82,8 @@ public class PlayerManager : MonoBehaviour  {
         // moveDown animation
         currentMole.moveDown = true;
         MoleManager.currentMole = null;
-        Managers.MoleManager.startNextMoleT = true;
+
+        if (!gameEnded) { Managers.MoleManager.startNextMoleT = true; }
     }
 
     private void UpdateScore()
@@ -90,14 +94,22 @@ public class PlayerManager : MonoBehaviour  {
 
     private void ShowWinPopup()
     {
+        gameEnded = true;
         endImage.SetActive(true);
         winText.SetActive(true);
     }
 
     private void ShowFailPopup()
     {
+        gameEnded = true;
         endImage.SetActive(true);
         loseText.SetActive(true);
+    }
+
+    public void OnStartButton()
+    {
+        Managers.MoleManager.startNextMoleT = true;
+        startButton.SetActive(false);
     }
 
     public void OnRestartButton()

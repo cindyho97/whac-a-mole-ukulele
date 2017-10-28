@@ -8,7 +8,7 @@ public class MoleManager : MonoBehaviour {
     public Mole[] moles;
     public byte nrOfMoles = 5;
     public static Mole currentMole;
-    private bool nextMole;
+    public bool nextMole;
 
     public Image nextMoleBar;
     public GameObject nextMoleBarObj;
@@ -27,10 +27,10 @@ public class MoleManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            nextMole = true;  
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    nextMole = true;  
+        //}
 
         if (nextMole)
         {
