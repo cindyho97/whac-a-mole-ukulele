@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoleManager : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class MoleManager : MonoBehaviour {
     public static Mole currentMole;
     private bool nextMole;
 
+    public Image nextMoleBar;
+    public GameObject nextMoleBarObj;
     public bool startNextMoleT;
     private float timeBeforeNextMole = 5;
     private float waitTime;
@@ -18,7 +21,8 @@ public class MoleManager : MonoBehaviour {
         moles = new Mole[nrOfMoles];
         moles = GameObject.FindObjectsOfType<Mole>();
         waitTime = timeBeforeNextMole;
-	}
+        nextMoleBarObj = nextMoleBar.transform.parent.gameObject;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,13 +62,16 @@ public class MoleManager : MonoBehaviour {
 
     public void StartNextMoleTimer()
     {
+        nextMoleBarObj.SetActive(true);
+        nextMoleBar.fillAmount = waitTime / timeBeforeNextMole;
         waitTime -= Time.deltaTime;
 
         if(waitTime <= 0)
         {
+            nextMoleBarObj.SetActive(false);
             startNextMoleT = false;
             nextMole = true;
-            waitTime = timeBeforeNextMole;
+            waitTime = timeBeforeNextMole;     
         }
     }
 }

@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 222679560818662654}
   - component: {fileID: 114992028685629600}
   m_Layer: 5
-  m_Name: BgTimerBar
+  m_Name: TimerBarBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
