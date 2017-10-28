@@ -8,6 +8,7 @@ public class MoleManager : MonoBehaviour {
     public bool noneOutOfHole = false; // No mole is completely out of hole --> there can only be one mole standing at a time
     private byte nrOfMoles = 5;
     private Mole currentMole;
+    private bool startGame;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,12 @@ public class MoleManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        // check if there are moles out of hole
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            startGame = true;
+        }
+
+        // Check if there are moles out of hole
         if (!noneOutOfHole)
         {
             bool noMoles = true;
@@ -36,8 +42,8 @@ public class MoleManager : MonoBehaviour {
             }
         }
 
-        // get mole out of hole
-        if (noneOutOfHole)
+        // Get mole out of hole
+        if (noneOutOfHole && startGame)
         {
             noneOutOfHole = false;
             ChooseRandomMole();
@@ -52,6 +58,7 @@ public class MoleManager : MonoBehaviour {
         int randomNr = Random.Range(0, 5);
         Debug.Log("randomnr: " + randomNr);
         currentMole = moles[randomNr];
+        Debug.Log("mole: " + currentMole);
     }
 
     private void MoleAppears()

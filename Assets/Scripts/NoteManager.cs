@@ -6,14 +6,15 @@ using System.Linq;
 public class NoteManager : MonoBehaviour {
 
     private SortedList<string, int> noteNames;
-    private int nrOfNotes = 3;
+    private int nrOfNotes;
 
 	// Use this for initialization
 	void Start () {
         noteNames = new SortedList<string, int>
         {
-            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"C", 5 }
+            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"CHigh", 5}
         };
+        nrOfNotes = noteNames.Count;
 	}
 	
 	// Update is called once per frame

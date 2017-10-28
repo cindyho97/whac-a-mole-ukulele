@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
+using UnityEngine.UI;
 
 public class Mole : MonoBehaviour {
 
@@ -19,29 +20,61 @@ public class Mole : MonoBehaviour {
     public bool playedRightNote = false;
     public bool playedNote = false;
 
-    private static Timer noteTimer;
-    public static float noteTimerSec = 0;
+    //private static Timer noteTimer;
+    //public static float noteTimerSec = 0;
     private bool startTimer = false;
     public static int waitTime = 10;
     private static bool timerRunning;
     private string randomNote;
 
+    //timer
+    private float totalNoteTime = 10;
+    public float currentNoteTime;
+    public Image timerBar;
+    private GameObject timerBarObj;
+
 	void Start () {
         startingPosition = transform.position;
         endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
+        timerBarObj = timerBar.gameObject.transform.parent.gameObject;
 	}
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        //if (Input.GetKeyDown(KeyCode.T)) // start timer
+        //{
+        //    Debug.Log("T is pressed");
+        //    StartNoteTimer();
+        //}   
+
+        if (timerRunning)
         {
-            moveUp = true;
+            timerBar.fillAmount = currentNoteTime / totalNoteTime;
+            currentNoteTime -= Time.deltaTime;
+            if (Managers.SerialRead.CheckNotePlayed())
+            {
+                ResetNoteValue();
+                Managers.SerialRead.noteDetected = false;
+                CheckPlayedNote();
+                timerRunning = false;
+                //noteTimer.Enabled = false;
+                Debug.Log("timer stopped");
+                timerBarObj.SetActive(false);
+                //noteTimerSec = 0;
+                UpdatePlayerStatus(playedRightNote);
+            }
+            else if(currentNoteTime < 0)
+            {
+                timerRunning = false;
+                timerBarObj.SetActive(false);
+                UpdatePlayerStatus(playedRightNote);
+            }
+            else
+            {
+                Debug.Log("No note played");
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.H))
-        {
-            moveDown = true;
-        }
- 
+
         if (moveUp)
         {
             Popup();
@@ -51,69 +84,6 @@ public class Mole : MonoBehaviour {
             Hide();
         }
 
-        if (Input.GetKeyDown(KeyCode.T)) // start timer
-        {
-            Debug.Log("T is pressed");
-            StartNoteTimer();
-        }
-
-        if (timerRunning)
-        {
-            if (Managers.SerialRead.CheckNotePlayed())
-            {
-                Managers.SerialRead.noteDetected = false;
-                CheckPlayedNote();
-                timerRunning = false;
-                noteTimer.Enabled = false;
-                Debug.Log("timer stopped");
-                noteTimerSec = 0;
-                UpdatePlayerStatus(playedRightNote);
-            }
-            else
-            {
-                Debug.Log("No note played");
-            }
-            ResetNoteValue();
-        }
-        
-    }
-
-    public void Popup()
-    {
-        currentLerpTime += Time.deltaTime;
-        if (currentLerpTime >= lerpTime)
-        {
-            currentLerpTime = lerpTime;
-        }
-
-        float speed = currentLerpTime / lerpTime;
-        transform.position = Vector3.Lerp(startingPosition, endPosition, speed);
-
-        if(transform.position == endPosition)
-        {
-            moveUp = false;
-            currentLerpTime = 0;
-            isOutOfHole = true;
-        }
-    }
-
-    public void Hide()
-    {
-        currentLerpTime += Time.deltaTime;
-        if (currentLerpTime >= lerpTime)
-        {
-            currentLerpTime = lerpTime;    
-        }
-
-        float speed = currentLerpTime / lerpTime;
-        transform.position = Vector3.Lerp(endPosition, startingPosition, speed);
-
-        if(transform.position == startingPosition)
-        {
-            moveDown = false;
-            currentLerpTime = 0;
-            isInHole = true;
-        }
     }
 
     public void StartNoteTimer()
@@ -125,29 +95,30 @@ public class Mole : MonoBehaviour {
         Debug.Log("random note: " + randomNote);
         // start moveUp animation
         moveUp = true;
-        noteTimer = new Timer();
-        noteTimer.Interval = 500;
-        noteTimer.Elapsed += NoteTimer_Elapsed;
-        noteTimer.Enabled = true;
+        //noteTimer = new Timer();
+        //noteTimer.Interval = 500;
+        //noteTimer.Elapsed += NoteTimer_Elapsed;
+        //noteTimer.Enabled = true;
         ResetNoteValue();
-
+        currentNoteTime = totalNoteTime;
         timerRunning = true;
+        timerBarObj.gameObject.SetActive(true);
     }
 
     private void NoteTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
-        noteTimerSec += .5f;
-        Debug.Log("timer sec: " + noteTimerSec);
+        //noteTimerSec += .5f;
+        //Debug.Log("timer sec: " + noteTimerSec);
 
-        if (noteTimerSec >= waitTime && timerRunning)
-        {
-            timerRunning = false;
-            noteTimer.Enabled = false;
-            noteTimerSec = 0;
-            Debug.Log("timer stopped");
-            // moveDown animation 
-            moveDown = true;
-        }
+        //if (noteTimerSec >= waitTime && timerRunning)
+        //{
+        //    timerRunning = false;
+        //    noteTimer.Enabled = false;
+        //    noteTimerSec = 0;
+        //    Debug.Log("timer stopped");
+        //    // moveDown animation 
+        //    moveDown = true;
+        //}
     }
 
     private void CheckPlayedNote()
@@ -178,5 +149,43 @@ public class Mole : MonoBehaviour {
     private void ResetNoteValue()
     {
         Managers.SerialRead.currentNoteValue = 0;
+    }
+
+    public void Popup()
+    {
+        currentLerpTime += Time.deltaTime;
+        if (currentLerpTime >= lerpTime)
+        {
+            currentLerpTime = lerpTime;
+        }
+
+        float speed = currentLerpTime / lerpTime;
+        transform.position = Vector3.Lerp(startingPosition, endPosition, speed);
+
+        if (transform.position == endPosition)
+        {
+            moveUp = false;
+            currentLerpTime = 0;
+            isOutOfHole = true;
+        }
+    }
+
+    public void Hide()
+    {
+        currentLerpTime += Time.deltaTime;
+        if (currentLerpTime >= lerpTime)
+        {
+            currentLerpTime = lerpTime;
+        }
+
+        float speed = currentLerpTime / lerpTime;
+        transform.position = Vector3.Lerp(endPosition, startingPosition, speed);
+
+        if (transform.position == startingPosition)
+        {
+            moveDown = false;
+            currentLerpTime = 0;
+            isInHole = true;
+        }
     }
 }

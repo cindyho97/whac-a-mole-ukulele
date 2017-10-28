@@ -5,16 +5,19 @@ using UnityEngine.UI;
 
 public class TimerBar : MonoBehaviour {
 
-
-    public Image timerCountBar;
+    private Image timerCountBar;
+    public float totalTime = 10;
+    public float currentTime;
 
 	// Use this for initialization
 	void Start () {
-		
+        timerCountBar = GetComponent<Image>();
+        currentTime = totalTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timerCountBar.fillAmount = Mole.noteTimerSec / Mole.waitTime; 
+        timerCountBar.fillAmount = currentTime / totalTime;
+        currentTime -= Time.deltaTime;
 	}
 }
