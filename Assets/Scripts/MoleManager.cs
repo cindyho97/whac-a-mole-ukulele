@@ -5,9 +5,8 @@ using UnityEngine;
 public class MoleManager : MonoBehaviour {
 
     public Mole[] moles;
-    public bool noneOutOfHole = false; // No mole is completely out of hole --> there can only be one mole standing at a time
-    private byte nrOfMoles = 5;
-    private Mole currentMole;
+    public byte nrOfMoles = 5;
+    public static Mole currentMole;
     private bool startGame;
 
 	// Use this for initialization
@@ -22,34 +21,9 @@ public class MoleManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.S))
         {
             startGame = true;
-        }
-
-        // Check if there are moles out of hole
-        if (!noneOutOfHole)
-        {
-            bool noMoles = true;
-            foreach(Mole mole in moles)
-            {
-                if (mole.isOutOfHole)
-                {
-                    noMoles = false;
-                }
-            }
-
-            if (noMoles)
-            {
-                noneOutOfHole = true;
-            }
-        }
-
-        // Get mole out of hole
-        if (noneOutOfHole && startGame)
-        {
-            noneOutOfHole = false;
             ChooseRandomMole();
             MoleAppears();
         }
-
     }
 
 
@@ -65,6 +39,6 @@ public class MoleManager : MonoBehaviour {
     {
         currentMole.isOutOfHole = true;
         currentMole.Popup();
-        currentMole.StartNoteTimer();
+        Managers.Note.StartNoteTimer();
     }
 }

@@ -58,15 +58,33 @@ public class PlayerManager : MonoBehaviour  {
         }
     }
 
+    public void UpdatePlayerStatus(bool playedRightNote)
+    {
+        Mole currentMole = MoleManager.currentMole;
+        Managers.Note.timerRunning = false;
+        currentMole.timerBarObj.SetActive(false);
+
+        if (playedRightNote)
+        {
+            currentMole.isHitByHammer = true;
+            // change to hitbyhammer sprite
+            Debug.Log("Score updated");
+            Messenger.Broadcast(GameEvent.UPDATE_SCORE);
+        }
+        else
+        {
+            Debug.Log("Lost life...");
+            Messenger.Broadcast(GameEvent.LOSE_LIFE);
+        }
+        // moveDown animation
+        currentMole.moveDown = true;
+        MoleManager.currentMole = null;
+    }
+
     private void UpdateScore()
     {
         score += 50;
         scoreText.text = score.ToString();
-    }
-
-    public void StartGame()
-    {
-        Managers.MoleManager.noneOutOfHole = true;
     }
 
     private void ShowWinPopup()

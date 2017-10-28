@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class NoteManager : MonoBehaviour {
 
     private SortedList<string, int> noteNames;
     private int nrOfNotes;
+    public string randomNote;
+    private Mole currentMole;
 
-	// Use this for initialization
-	void Start () {
+    // Timer
+    public bool timerRunning;
+    private float totalWaitTime = 10;
+    private float currentTime;
+    private Image timerBar;
+
+    // Use this for initialization
+    void Start () {
         noteNames = new SortedList<string, int>
         {
             {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"CHigh", 5}
@@ -19,8 +28,28 @@ public class NoteManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (timerRunning)
+        {
+            timerBar.fillAmount = currentTime / totalWaitTime;
+            currentTime -= Time.deltaTime;
 
-	}
+            // Check if there is note input detected
+            if (Managers.SerialRead.CheckNotePlayed())
+            {
+                Managers.SerialRead.noteDetected = false;
+                CheckPlayedNote(randomNote);
+                Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
+            }
+            else if (currentTime <= 0)
+            {
+                Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
+            }
+            else
+            {
+                Debug.Log("No note played");
+            }
+        }
+    }
 
 
     public string GetRandomNote()
@@ -28,6 +57,33 @@ public class NoteManager : MonoBehaviour {
         int randomNr = Random.Range(0, nrOfNotes);
         string noteName = noteNames.ElementAt(randomNr).Key;
         return noteName;
+    }
+
+    private void AssignCurrentMole()
+    {
+        currentMole = MoleManager.currentMole;
+        timerBar = currentMole.timerBar;
+    }
+
+    public void StartNoteTimer()
+    {
+        Debug.Log("Start timer!");
+        randomNote = GetRandomNote();
+        Debug.Log("random note: " + randomNote);
+        AssignCurrentMole();
+
+        // start moveUp animation
+        currentMole.moveUp = true;
+        currentTime = totalWaitTime;
+        timerRunning = true;
+        currentMole.timerBarObj.gameObject.SetActive(true);
+    }
+
+    public void CheckPlayedNote(string randomNote)
+    {
+        string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.currentNoteValue);
+        currentMole.playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
+        Debug.Log("played note: " + notePlayed);
     }
 
     public string CheckNoteInRange(int noteValue)

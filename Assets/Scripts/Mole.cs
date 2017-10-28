@@ -8,8 +8,8 @@ public class Mole : MonoBehaviour {
 
     private Vector3 startingPosition;
     private Vector3 endPosition;
-    private bool moveUp = false;
-    private bool moveDown = false;
+    public bool moveUp = false;
+    public bool moveDown = false;
     // Time to take from start to finish
     private float lerpTime = 0.5f;
     private float currentLerpTime = 0f;
@@ -19,14 +19,8 @@ public class Mole : MonoBehaviour {
     public bool playedRightNote = false;
     public bool playedNote = false;
   
-    private string randomNote;
-
-    // Timer
-    private static bool timerRunning;
-    private float totalWaitTime = 10;
-    private float currentTime;
     public Image timerBar;
-    private GameObject timerBarObj;
+    public GameObject timerBarObj;
 
 	void Start () {
         startingPosition = transform.position;
@@ -36,27 +30,6 @@ public class Mole : MonoBehaviour {
 
     private void Update()
     { 
-        if (timerRunning)
-        {
-            timerBar.fillAmount = currentTime / totalWaitTime;
-            currentTime -= Time.deltaTime;
-            if (Managers.SerialRead.CheckNotePlayed())
-            {
-                ResetNoteValue();
-                Managers.SerialRead.noteDetected = false;
-                CheckPlayedNote();
-                UpdatePlayerStatus(playedRightNote);
-            }
-            else if(currentTime < 0)
-            { 
-                UpdatePlayerStatus(playedRightNote);
-            }
-            else
-            {
-                Debug.Log("No note played");
-            }
-        }
-
         if (moveUp)
         {
             Popup();
@@ -65,54 +38,6 @@ public class Mole : MonoBehaviour {
         {
             Hide();
         }
-
-    }
-
-    public void StartNoteTimer()
-    {
-        Debug.Log("Start timer!");
-        randomNote = Managers.Note.GetRandomNote();
-        Debug.Log("random note: " + randomNote);
-        
-        // start moveUp animation
-        moveUp = true;
-        ResetNoteValue();
-        currentTime = totalWaitTime;
-        timerRunning = true;
-        timerBarObj.gameObject.SetActive(true);
-    }
-
-    private void CheckPlayedNote()
-    {
-        string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.currentNoteValue);
-        playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
-        Debug.Log("played note: " + notePlayed);
-    }
-
-    private void UpdatePlayerStatus(bool playedRightNote)
-    {
-        timerRunning = false;
-        timerBarObj.SetActive(false);
-
-        if (playedRightNote)
-        {
-            isHitByHammer = true;
-            // change to hitbyhammer sprite
-            Debug.Log("Score updated");
-            Messenger.Broadcast(GameEvent.UPDATE_SCORE);
-        }
-        else
-        {
-            Debug.Log("Lost life...");
-            Messenger.Broadcast(GameEvent.LOSE_LIFE);
-        }
-        // moveDown animation
-        moveDown = true;
-    }
-
-    private void ResetNoteValue()
-    {
-        Managers.SerialRead.currentNoteValue = 0;
     }
 
     // Move up
