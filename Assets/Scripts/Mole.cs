@@ -15,21 +15,16 @@ public class Mole : MonoBehaviour {
     private float currentLerpTime = 0f;
 
     public bool isOutOfHole = false;
-    public bool isInHole = false;
     public bool isHitByHammer = false;
     public bool playedRightNote = false;
     public bool playedNote = false;
-
-    //private static Timer noteTimer;
-    //public static float noteTimerSec = 0;
-    private bool startTimer = false;
-    public static int waitTime = 10;
-    private static bool timerRunning;
+  
     private string randomNote;
 
-    //timer
-    private float totalNoteTime = 10;
-    public float currentNoteTime;
+    // Timer
+    private static bool timerRunning;
+    private float totalWaitTime = 10;
+    private float currentTime;
     public Image timerBar;
     private GameObject timerBarObj;
 
@@ -40,33 +35,20 @@ public class Mole : MonoBehaviour {
 	}
 
     private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.T)) // start timer
-        //{
-        //    Debug.Log("T is pressed");
-        //    StartNoteTimer();
-        //}   
-
+    { 
         if (timerRunning)
         {
-            timerBar.fillAmount = currentNoteTime / totalNoteTime;
-            currentNoteTime -= Time.deltaTime;
+            timerBar.fillAmount = currentTime / totalWaitTime;
+            currentTime -= Time.deltaTime;
             if (Managers.SerialRead.CheckNotePlayed())
             {
                 ResetNoteValue();
                 Managers.SerialRead.noteDetected = false;
                 CheckPlayedNote();
-                timerRunning = false;
-                //noteTimer.Enabled = false;
-                Debug.Log("timer stopped");
-                timerBarObj.SetActive(false);
-                //noteTimerSec = 0;
                 UpdatePlayerStatus(playedRightNote);
             }
-            else if(currentNoteTime < 0)
-            {
-                timerRunning = false;
-                timerBarObj.SetActive(false);
+            else if(currentTime < 0)
+            { 
                 UpdatePlayerStatus(playedRightNote);
             }
             else
@@ -88,37 +70,16 @@ public class Mole : MonoBehaviour {
 
     public void StartNoteTimer()
     {
-        //startTimer = true;
-        
         Debug.Log("Start timer!");
         randomNote = Managers.Note.GetRandomNote();
         Debug.Log("random note: " + randomNote);
+        
         // start moveUp animation
         moveUp = true;
-        //noteTimer = new Timer();
-        //noteTimer.Interval = 500;
-        //noteTimer.Elapsed += NoteTimer_Elapsed;
-        //noteTimer.Enabled = true;
         ResetNoteValue();
-        currentNoteTime = totalNoteTime;
+        currentTime = totalWaitTime;
         timerRunning = true;
         timerBarObj.gameObject.SetActive(true);
-    }
-
-    private void NoteTimer_Elapsed(object sender, ElapsedEventArgs e)
-    {
-        //noteTimerSec += .5f;
-        //Debug.Log("timer sec: " + noteTimerSec);
-
-        //if (noteTimerSec >= waitTime && timerRunning)
-        //{
-        //    timerRunning = false;
-        //    noteTimer.Enabled = false;
-        //    noteTimerSec = 0;
-        //    Debug.Log("timer stopped");
-        //    // moveDown animation 
-        //    moveDown = true;
-        //}
     }
 
     private void CheckPlayedNote()
@@ -130,6 +91,9 @@ public class Mole : MonoBehaviour {
 
     private void UpdatePlayerStatus(bool playedRightNote)
     {
+        timerRunning = false;
+        timerBarObj.SetActive(false);
+
         if (playedRightNote)
         {
             isHitByHammer = true;
@@ -151,6 +115,7 @@ public class Mole : MonoBehaviour {
         Managers.SerialRead.currentNoteValue = 0;
     }
 
+    // Move up
     public void Popup()
     {
         currentLerpTime += Time.deltaTime;
@@ -170,6 +135,7 @@ public class Mole : MonoBehaviour {
         }
     }
 
+    // Move down
     public void Hide()
     {
         currentLerpTime += Time.deltaTime;
@@ -185,7 +151,7 @@ public class Mole : MonoBehaviour {
         {
             moveDown = false;
             currentLerpTime = 0;
-            isInHole = true;
+            isOutOfHole = false;
         }
     }
 }
