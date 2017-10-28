@@ -12,10 +12,7 @@ public class NoteManager : MonoBehaviour {
 	void Start () {
         noteNames = new SortedList<string, int>
         {
-            {"D3", 72 }, {"G3", 45 }, {"B3", 29 },
-            {"E", 62 },  {"A", 37 },  {"C", 26 },
-            {"F", 52 }
-
+            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"C", 5 }
         };
 	}
 	
@@ -35,7 +32,7 @@ public class NoteManager : MonoBehaviour {
     public string CheckNoteInRange(int noteValue)
     {
         string noteName = "";
-        List<int> notesInRange = new List<int>() { noteValue - 2, noteValue - 1, noteValue, noteValue + 1, noteValue + 2 };
+        List<int> notesInRange = new List<int>() { noteValue - 3, noteValue - 2, noteValue - 1, noteValue, noteValue + 1, noteValue + 2, noteValue + 3};
 
         foreach(int note in notesInRange)
         {

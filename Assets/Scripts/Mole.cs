@@ -20,9 +20,9 @@ public class Mole : MonoBehaviour {
     public bool playedNote = false;
 
     private static Timer noteTimer;
-    private static float noteTimerSec = 0;
+    public static float noteTimerSec = 0;
     private bool startTimer = false;
-    private static int waitTime = 10;
+    public static int waitTime = 10;
     private static bool timerRunning;
     private string randomNote;
 
@@ -102,8 +102,7 @@ public class Mole : MonoBehaviour {
         currentLerpTime += Time.deltaTime;
         if (currentLerpTime >= lerpTime)
         {
-            currentLerpTime = lerpTime;
-            
+            currentLerpTime = lerpTime;    
         }
 
         float speed = currentLerpTime / lerpTime;
@@ -162,6 +161,8 @@ public class Mole : MonoBehaviour {
     {
         if (playedRightNote)
         {
+            isHitByHammer = true;
+            // change to hitbyhammer sprite
             Debug.Log("Score updated");
             Messenger.Broadcast(GameEvent.UPDATE_SCORE);
         }

@@ -43,7 +43,7 @@ public class SerialRead : MonoBehaviour
             noteDetected = true;
             currentNoteValue = 45;
         }
-        //Debug.Log("databyte: " + databyteRead);
+        //Debug.Log("databyte_in: " + databyte_in);
         CheckNotePlayed();  
     }
 
@@ -51,7 +51,6 @@ public class SerialRead : MonoBehaviour
     {
         if (databyteRead) //als een databyte ontvangen is
         {
-            Debug.Log(databyte_in);
             databyteRead = false; //om volgende databyte te kunnen ontvangen
             currentNoteValue = 0;
             currentNoteValue = (short)databyte_in;
