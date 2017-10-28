@@ -79,6 +79,7 @@ public class PlayerManager : MonoBehaviour  {
         // moveDown animation
         currentMole.moveDown = true;
         MoleManager.currentMole = null;
+        Managers.MoleManager.startNextMoleT = true;
     }
 
     private void UpdateScore()
@@ -89,7 +90,6 @@ public class PlayerManager : MonoBehaviour  {
 
     private void ShowWinPopup()
     {
-        Debug.Log("winpopup");
         endImage.SetActive(true);
         winText.SetActive(true);
     }

@@ -40,7 +40,7 @@ public class NoteManager : MonoBehaviour {
                 CheckPlayedNote(randomNote);
                 Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
             }
-            else if (currentTime <= 0)
+            else if (currentTime <= 0) // Timer hits 0
             {
                 Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
             }
@@ -50,7 +50,6 @@ public class NoteManager : MonoBehaviour {
             }
         }
     }
-
 
     public string GetRandomNote()
     {
@@ -71,12 +70,10 @@ public class NoteManager : MonoBehaviour {
         randomNote = GetRandomNote();
         Debug.Log("random note: " + randomNote);
         AssignCurrentMole();
-
-        // start moveUp animation
         currentMole.moveUp = true;
         currentTime = totalWaitTime;
         timerRunning = true;
-        currentMole.timerBarObj.gameObject.SetActive(true);
+        currentMole.timerBarObj.SetActive(true);
     }
 
     public void CheckPlayedNote(string randomNote)

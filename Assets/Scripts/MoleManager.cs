@@ -7,12 +7,17 @@ public class MoleManager : MonoBehaviour {
     public Mole[] moles;
     public byte nrOfMoles = 5;
     public static Mole currentMole;
-    private bool startGame;
+    private bool nextMole;
+
+    public bool startNextMoleT;
+    private float timeBeforeNextMole = 5;
+    private float waitTime;
 
 	// Use this for initialization
 	void Start () {
         moles = new Mole[nrOfMoles];
         moles = GameObject.FindObjectsOfType<Mole>();
+        waitTime = timeBeforeNextMole;
 	}
 	
 	// Update is called once per frame
@@ -20,12 +25,21 @@ public class MoleManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            startGame = true;
+            nextMole = true;  
+        }
+
+        if (nextMole)
+        {
+            nextMole = false;
             ChooseRandomMole();
             MoleAppears();
         }
-    }
 
+        if (startNextMoleT)
+        {
+            StartNextMoleTimer();
+        }
+    }
 
     private void ChooseRandomMole()
     {
@@ -40,5 +54,17 @@ public class MoleManager : MonoBehaviour {
         currentMole.isOutOfHole = true;
         currentMole.Popup();
         Managers.Note.StartNoteTimer();
+    }
+
+    public void StartNextMoleTimer()
+    {
+        waitTime -= Time.deltaTime;
+
+        if(waitTime <= 0)
+        {
+            startNextMoleT = false;
+            nextMole = true;
+            waitTime = timeBeforeNextMole;
+        }
     }
 }
