@@ -21,11 +21,14 @@ public class Mole : MonoBehaviour {
   
     public Image timerBar;
     public GameObject timerBarObj;
+    public Text noteText;
 
 	void Start () {
         startingPosition = transform.position;
         endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
         timerBarObj = timerBar.gameObject.transform.parent.gameObject;
+        noteText = timerBarObj.GetComponentInChildren<Text>();
+        Debug.Log("notetext: " + noteText);
 	}
 
     private void Update()

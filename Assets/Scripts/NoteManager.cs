@@ -67,9 +67,10 @@ public class NoteManager : MonoBehaviour {
     public void StartNoteTimer()
     {
         Debug.Log("Start timer!");
-        randomNote = GetRandomNote();
+        randomNote = GetRandomNote();   
         Debug.Log("random note: " + randomNote);
         AssignCurrentMole();
+        currentMole.noteText.text = randomNote;
         currentMole.moveUp = true;
         currentTime = totalWaitTime;
         timerRunning = true;
