@@ -93,10 +93,7 @@ public class NoteManager : MonoBehaviour {
         {
             return true;  
         }
-        else
-        {
-            return false;
-        }
+        else { return false; }
     }
 
     private void AssignCurrentMole()

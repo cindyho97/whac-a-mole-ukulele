@@ -16,6 +16,8 @@ public class MoleManager : MonoBehaviour {
     private float timeBeforeNextMole = 5;
     private float waitTime;
 
+    private int previousMoleNr;
+
 	// Use this for initialization
 	void Start () {
         moles = new Mole[nrOfMoles];
@@ -47,10 +49,23 @@ public class MoleManager : MonoBehaviour {
 
     private void ChooseRandomMole()
     {
-        int randomNr = Random.Range(0, 5);
-        Debug.Log("randomnr: " + randomNr);
+        int randomNr;
+        do
+        {
+            randomNr = Random.Range(0, nrOfMoles);
+        } while (CheckSameMoleNr(randomNr));
+
+        previousMoleNr = randomNr;
         currentMole = moles[randomNr];
-        Debug.Log("mole: " + currentMole);
+    }
+
+    private bool CheckSameMoleNr(int currentNr)
+    {
+        if(currentNr == previousMoleNr)
+        {
+            return true;
+        }
+        else { return false; }
     }
 
     private void MoleAppears()
