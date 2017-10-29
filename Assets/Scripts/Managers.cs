@@ -9,6 +9,7 @@ public class Managers : MonoBehaviour {
     public static MoleManager MoleManager { get; private set; }
     public static NoteManager Note { get; private set; }
     public static SerialRead SerialRead { get; private set; }
+    public static SettingsManager Settings { get; private set; }
 
     private void Awake()
     {
@@ -16,5 +17,6 @@ public class Managers : MonoBehaviour {
         MoleManager = GetComponent<MoleManager>();
         Note = GetComponent<NoteManager>();
         SerialRead = GetComponent<SerialRead>();
+        Settings = GetComponent<SettingsManager>();
     }
 }

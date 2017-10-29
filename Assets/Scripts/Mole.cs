@@ -28,7 +28,6 @@ public class Mole : MonoBehaviour {
         endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
         timerBarObj = timerBar.gameObject.transform.parent.gameObject;
         noteText = timerBarObj.GetComponentInChildren<Text>();
-        Debug.Log("notetext: " + noteText);
 	}
 
     private void Update()

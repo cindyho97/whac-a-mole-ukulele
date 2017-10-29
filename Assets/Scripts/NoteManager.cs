@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class NoteManager : MonoBehaviour {
 
     private SortedList<string, int> noteNames;
+    private SortedList<string, int> fourNotesList;
+    private SortedList<string, int> eightNotesList;
     private int nrOfNotes;
     public string randomNote;
     private Mole currentMole;
@@ -19,11 +21,16 @@ public class NoteManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        noteNames = new SortedList<string, int>
+        fourNotesList = new SortedList<string, int>
+        {
+            {"C", 102 }, {"E", 63 }, {"G", 38 },
+        };
+        eightNotesList = new SortedList<string, int>
         {
             {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"CHigh", 5}
         };
-        nrOfNotes = noteNames.Count;
+        // Standard note list
+        UpdateNoteList(Managers.Settings.dropDown.value);
 	}
 	
 	// Update is called once per frame
@@ -49,6 +56,21 @@ public class NoteManager : MonoBehaviour {
                 Debug.Log("No note played");
             }
         }
+    }
+
+    public void UpdateNoteList(int valueDropDown)
+    {
+        switch(valueDropDown)
+        {
+            case 0:
+                noteNames = fourNotesList;
+                break;
+            case 1:
+                noteNames = eightNotesList;
+                break;
+        }
+        nrOfNotes = noteNames.Count;
+        Debug.Log("nrOfNotes: " + nrOfNotes);
     }
 
     public string GetRandomNote()
