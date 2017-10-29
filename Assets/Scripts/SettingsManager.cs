@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour {
 
-    public static float timeForPlayingNote;
-    public static float timeBeforeNextMole;
-    public Dropdown dropDown;
+    public Dropdown notesDropDown;
+    public Slider timeNoteSlider;
+    public Slider timeMoleSlider;
 
     private void Awake()
     {
@@ -30,27 +30,37 @@ public class SettingsManager : MonoBehaviour {
 	
     private void UpdateNrNotes()
     {
-        Managers.Note.UpdateNoteList(dropDown.value);
+        Managers.Note.UpdateNoteList(notesDropDown.value);
     }
 
     private void UpdateNoteTime()
     {
-
+        Managers.Note.UpdateNoteTime(timeNoteSlider.value);
     }
 
     private void UpdateMoleTime()
     {
+        Managers.MoleManager.UpdateMoleTime(timeMoleSlider.value);
+    }
 
+    public void OnNotesDropDownChanged()
+    {
+        Messenger.Broadcast(GameEvent.NR_NOTES_UPDATED);
+    }
+
+    public void OnTimeNoteValueChanged()
+    {
+        Messenger.Broadcast(GameEvent.TIME_NOTE_UPDATED);
+    }
+
+    public void OnTimeMoleValueChanged()
+    {
+        Messenger.Broadcast(GameEvent.TIME_MOLE_UPDATED);
     }
 
     public void OnContinueButton()
     {
-        Messenger.Broadcast(GameEvent.TIME_NOTE_UPDATED);
-        Messenger.Broadcast(GameEvent.TIME_MOLE_UPDATED);
-    }
 
-    public void OnValueChanged()
-    {
-        Messenger.Broadcast(GameEvent.NR_NOTES_UPDATED);
+
     }
 }

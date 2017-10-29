@@ -30,7 +30,7 @@ public class NoteManager : MonoBehaviour {
             {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"CHigh", 5}
         };
         // Standard note list
-        UpdateNoteList(Managers.Settings.dropDown.value);
+        UpdateNoteList(Managers.Settings.notesDropDown.value);
 	}
 	
 	// Update is called once per frame
@@ -147,4 +147,12 @@ public class NoteManager : MonoBehaviour {
             return false;
         }
     }
+
+    public void UpdateNoteTime(float sliderValue)
+    {
+        totalWaitTime = sliderValue;
+        Debug.Log("notetime: " + totalWaitTime);
+    }
+
+    
 }

@@ -74,4 +74,10 @@ public class MoleManager : MonoBehaviour {
             waitTime = timeBeforeNextMole;     
         }
     }
+
+    public void UpdateMoleTime(float sliderValue)
+    {
+        timeBeforeNextMole = sliderValue;
+        Debug.Log("moleTime: " + timeBeforeNextMole);
+    }
 }
