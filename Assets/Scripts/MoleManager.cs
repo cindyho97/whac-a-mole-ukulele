@@ -13,7 +13,7 @@ public class MoleManager : MonoBehaviour {
     public Image nextMoleBar;
     public GameObject nextMoleBarObj;
     public bool startNextMoleT;
-    private float timeBeforeNextMole = 5;
+    private float timeBeforeNextMole;
     private float waitTime;
 
     private int previousMoleNr;
@@ -22,7 +22,6 @@ public class MoleManager : MonoBehaviour {
 	void Start () {
         moles = new Mole[nrOfMoles];
         moles = GameObject.FindObjectsOfType<Mole>();
-        waitTime = timeBeforeNextMole;
         nextMoleBarObj = nextMoleBar.transform.parent.gameObject;
     }
 	
@@ -94,6 +93,5 @@ public class MoleManager : MonoBehaviour {
     {
         waitTime = sliderValue;
         timeBeforeNextMole = sliderValue;
-        Debug.Log("moleTime: " + timeBeforeNextMole);
     }
 }

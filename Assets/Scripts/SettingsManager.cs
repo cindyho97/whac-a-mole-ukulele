@@ -14,7 +14,7 @@ public class SettingsManager : MonoBehaviour {
     {
         Messenger.AddListener(GameEvent.NR_NOTES_UPDATED, UpdateNrNotes);
         Messenger.AddListener(GameEvent.TIME_NOTE_UPDATED, UpdateNoteTime);
-        Messenger.AddListener(GameEvent.TIME_MOLE_UPDATED, UpdateMoleTime);
+        Messenger.AddListener(GameEvent.TIME_MOLE_UPDATED, UpdateMoleTime);   
     }
 
     private void OnDestroy()
@@ -26,8 +26,8 @@ public class SettingsManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-	}
+        UpdateSettingsValues();
+    }
 	
     private void UpdateNrNotes()
     {
@@ -62,10 +62,33 @@ public class SettingsManager : MonoBehaviour {
     public void OnContinueButton()
     {
         settingsImage.SetActive(false);
+        SaveSettings();
     }
 
     public void OnSettingsButton()
     {
-        settingsImage.SetActive(true);
+        if (settingsImage.activeSelf)
+        {
+            settingsImage.SetActive(false);
+            SaveSettings();
+        }
+        else { settingsImage.SetActive(true); }
+    }
+
+    private void UpdateSettingsValues()
+    {
+        notesDropDown.value = PlayerPrefs.GetInt("NotesDropDown", 0);
+        timeNoteSlider.value = PlayerPrefs.GetInt("TimeNoteSlider", 10);
+        timeMoleSlider.value = PlayerPrefs.GetInt("TimeMoleSlider", 5);
+        Managers.Note.UpdateNoteList(notesDropDown.value);
+        Managers.Note.UpdateNoteTime(timeNoteSlider.value);
+        Managers.MoleManager.UpdateMoleTime(timeMoleSlider.value);
+    }
+
+    private void SaveSettings()
+    {
+        PlayerPrefs.SetInt("NotesDropDown", notesDropDown.value);
+        PlayerPrefs.SetInt("TimeNoteSlider", (int)timeNoteSlider.value);
+        PlayerPrefs.SetInt("TimeMoleSlider", (int)timeMoleSlider.value);
     }
 }
