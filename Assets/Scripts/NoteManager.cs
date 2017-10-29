@@ -12,6 +12,7 @@ public class NoteManager : MonoBehaviour {
     private int nrOfNotes;
     public string randomNote;
     private Mole currentMole;
+    private int previousNr;
 
     // Timer
     public bool timerRunning;
@@ -70,14 +71,32 @@ public class NoteManager : MonoBehaviour {
                 break;
         }
         nrOfNotes = noteNames.Count;
-        Debug.Log("nrOfNotes: " + nrOfNotes);
     }
 
     public string GetRandomNote()
     {
-        int randomNr = Random.Range(0, nrOfNotes);
+        int randomNr;
+        do
+        {
+            randomNr = Random.Range(0, nrOfNotes);
+        }
+        while (CheckSameNr(randomNr));
+
+        previousNr = randomNr;
         string noteName = noteNames.ElementAt(randomNr).Key;
         return noteName;
+    }
+
+    private bool CheckSameNr(int currentNr)
+    {
+        if (currentNr == previousNr)
+        {
+            return true;  
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void AssignCurrentMole()
@@ -91,6 +110,7 @@ public class NoteManager : MonoBehaviour {
         Debug.Log("Start timer!");
         randomNote = GetRandomNote();   
         Debug.Log("random note: " + randomNote);
+
         AssignCurrentMole();
         currentMole.noteText.text = randomNote;
         currentMole.moveUp = true;
