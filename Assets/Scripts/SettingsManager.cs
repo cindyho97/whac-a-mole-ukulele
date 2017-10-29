@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour {
 
+    public GameObject settingsImage;
     public Dropdown notesDropDown;
     public Slider timeNoteSlider;
     public Slider timeMoleSlider;
@@ -60,7 +61,11 @@ public class SettingsManager : MonoBehaviour {
 
     public void OnContinueButton()
     {
+        settingsImage.SetActive(false);
+    }
 
-
+    public void OnSettingsButton()
+    {
+        settingsImage.SetActive(true);
     }
 }
