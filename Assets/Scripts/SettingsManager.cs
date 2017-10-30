@@ -9,6 +9,8 @@ public class SettingsManager : MonoBehaviour {
     public Dropdown notesDropDown;
     public Slider timeNoteSlider;
     public Slider timeMoleSlider;
+    public Text noteTimeText;
+    public Text moleTimeText;
 
     private void Awake()
     {
@@ -51,11 +53,13 @@ public class SettingsManager : MonoBehaviour {
 
     public void OnTimeNoteValueChanged()
     {
+        noteTimeText.text = timeNoteSlider.value.ToString();
         Messenger.Broadcast(GameEvent.TIME_NOTE_UPDATED);
     }
 
     public void OnTimeMoleValueChanged()
     {
+        moleTimeText.text = timeMoleSlider.value.ToString();
         Messenger.Broadcast(GameEvent.TIME_MOLE_UPDATED);
     }
 
