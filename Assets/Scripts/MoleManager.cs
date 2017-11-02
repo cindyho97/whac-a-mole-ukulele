@@ -94,4 +94,6 @@ public class MoleManager : MonoBehaviour {
         waitTime = sliderValue;
         timeBeforeNextMole = sliderValue;
     }
+
+    
 }

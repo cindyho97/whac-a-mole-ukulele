@@ -27,14 +27,23 @@ public class Mole : MonoBehaviour {
     public Sprite moleHit;
     private Sprite moleIdle;
 
-	void Start () {
+    public GameObject hammer;
+    private Animator hammerAnim;
+    public bool hammerAnimComplete;
+    private Hammer hammerScript;
+
+
+    void Start () {
         startingPosition = transform.position;
+        // Set end position mole
         endPosition = new Vector3(startingPosition.x, startingPosition.y+90, startingPosition.z);
         timerBarObj = timerBar.gameObject.transform.parent.gameObject;
         noteText = timerBarObj.GetComponentInChildren<Text>();
         moleImage = GetComponent<Image>();
         moleIdle = gameObject.GetComponent<Image>().sprite;
-	}
+        hammerAnim = hammer.GetComponent<Animator>();
+        hammerScript = hammer.GetComponent<Hammer>();
+    }
 
     private void Update()
     { 
@@ -46,6 +55,12 @@ public class Mole : MonoBehaviour {
         {
             Hide();
         }
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    hammer.SetActive(true);
+        //    hammerAnim.SetBool("HammerHit", true);
+        //}
     }
 
     // Move up
@@ -93,23 +108,34 @@ public class Mole : MonoBehaviour {
         if (isHitByHammer)
         {
             moleImage.sprite = moleHit;
-            Debug.Log("hit sprite");
         }
         else
         {
             moleImage.sprite = moleIdle;
         }
-        Debug.Log("mole sprite: " + moleImage.sprite);
     }
 
     public IEnumerator MoleHitAnimation()
     {
+        
         isHitByHammer = true;
-        // hammer animation
+        hammer.SetActive(true);
+        hammerScript.SetHammerAnim(true);
+
+        // Wait till hammer anim is completed
+        while (!hammerAnimComplete)
+        {
+            yield return null;
+        }
+
+        // Change mole sprite
         ChangeMoleSprite(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
         ChangeMoleSprite(false);
+        hammerScript.SetHammerAnim(false);
+        // Move down animation
         moveDown = true;
+
         // Wait same amount of sec as moveDown animation
         yield return new WaitForSeconds(lerpTime);
         Managers.MoleManager.startNextMoleT = true;

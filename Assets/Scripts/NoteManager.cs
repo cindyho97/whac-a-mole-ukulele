@@ -174,5 +174,4 @@ public class NoteManager : MonoBehaviour {
         timerBar.fillAmount = currentTime / totalWaitTime;
         currentTime -= Time.deltaTime;
     }
-    
 }
