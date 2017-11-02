@@ -36,24 +36,8 @@ public class NoteManager : MonoBehaviour {
 	void Update () {
         if (timerRunning)
         {
-            timerBar.fillAmount = currentTime / totalWaitTime;
-            currentTime -= Time.deltaTime;
-
-            // Check if there is note input detected
-            if (Managers.SerialRead.CheckNotePlayed())
-            {
-                Managers.SerialRead.noteDetected = false;
-                CheckPlayedNote(randomNote);
-                Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
-            }
-            else if (currentTime <= 0) // Timer hits 0
-            {
-                Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
-            }
-            else
-            {
-                Debug.Log("No note played");
-            }
+            UpdateTimerBar();
+            CheckNoteInput();
         }
     }
 
@@ -128,11 +112,9 @@ public class NoteManager : MonoBehaviour {
 
         foreach(int note in notesInRange)
         {
-            Debug.Log("note value: " + note);
             if (noteNames.ContainsValue(note))
             {
                 int index = noteNames.IndexOfValue(note);
-                Debug.Log("index: " + noteNames.IndexOfValue(note));
                 noteName = noteNames.ElementAt(index).Key;
             }
         }
@@ -163,10 +145,34 @@ public class NoteManager : MonoBehaviour {
         }
     }
 
+    private void CheckNoteInput()
+    {
+        // Check if there is note input detected
+        if (Managers.SerialRead.CheckNotePlayed())
+        {
+            Managers.SerialRead.noteDetected = false;
+            CheckPlayedNote(randomNote);
+            Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
+        }
+        else if (currentTime <= 0) // Timer hits 0
+        {
+            Managers.Player.UpdatePlayerStatus(currentMole.playedRightNote);
+        }
+        else
+        {
+            Debug.Log("No note played");
+        }
+    }
+
     public void UpdateNoteTime(float sliderValue)
     {
         totalWaitTime = sliderValue;
     }
 
+    private void UpdateTimerBar()
+    {
+        timerBar.fillAmount = currentTime / totalWaitTime;
+        currentTime -= Time.deltaTime;
+    }
     
 }

@@ -65,25 +65,25 @@ public class PlayerManager : MonoBehaviour  {
     {
         Mole currentMole = MoleManager.currentMole;
         Managers.Note.timerRunning = false;
-        currentMole.timerBarObj.SetActive(false);
+        MoleManager.currentMole.timerBarObj.SetActive(false);
 
         if (playedRightNote)
         {
-            currentMole.isHitByHammer = true;
-            // change to hitbyhammer sprite
-            Debug.Log("Score updated");
-            Messenger.Broadcast(GameEvent.UPDATE_SCORE);
+            // hit animation
+            StartCoroutine(currentMole.MoleHitAnimation());
+            Messenger.Broadcast(GameEvent.UPDATE_SCORE); 
         }
         else
         {
             Debug.Log("Lost life...");
             Messenger.Broadcast(GameEvent.LOSE_LIFE);
+            // moveDown animation
+            currentMole.moveDown = true;
         }
-        // moveDown animation
-        currentMole.moveDown = true;
-        MoleManager.currentMole = null;
 
-        if (!gameEnded) { Managers.MoleManager.startNextMoleT = true; }
+        if (!gameEnded && !currentMole.isHitByHammer) { Managers.MoleManager.startNextMoleT = true; }
+        currentMole.isHitByHammer = false;
+        MoleManager.currentMole = null;
     }
 
     private void UpdateScore()

@@ -23,11 +23,17 @@ public class Mole : MonoBehaviour {
     public GameObject timerBarObj;
     public Text noteText;
 
+    private Image moleImage;
+    public Sprite moleHit;
+    private Sprite moleIdle;
+
 	void Start () {
         startingPosition = transform.position;
-        endPosition = new Vector3(startingPosition.x, startingPosition.y + 100, startingPosition.z);
+        endPosition = new Vector3(startingPosition.x, startingPosition.y+90, startingPosition.z);
         timerBarObj = timerBar.gameObject.transform.parent.gameObject;
         noteText = timerBarObj.GetComponentInChildren<Text>();
+        moleImage = GetComponent<Image>();
+        moleIdle = gameObject.GetComponent<Image>().sprite;
 	}
 
     private void Update()
@@ -80,5 +86,32 @@ public class Mole : MonoBehaviour {
             currentLerpTime = 0;
             isOutOfHole = false;
         }
+    }
+
+    public void ChangeMoleSprite(bool isHitByHammer)
+    {
+        if (isHitByHammer)
+        {
+            moleImage.sprite = moleHit;
+            Debug.Log("hit sprite");
+        }
+        else
+        {
+            moleImage.sprite = moleIdle;
+        }
+        Debug.Log("mole sprite: " + moleImage.sprite);
+    }
+
+    public IEnumerator MoleHitAnimation()
+    {
+        isHitByHammer = true;
+        // hammer animation
+        ChangeMoleSprite(true);
+        yield return new WaitForSeconds(1);
+        ChangeMoleSprite(false);
+        moveDown = true;
+        // Wait same amount of sec as moveDown animation
+        yield return new WaitForSeconds(lerpTime);
+        Managers.MoleManager.startNextMoleT = true;
     }
 }
