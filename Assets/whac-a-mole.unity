@@ -1379,7 +1379,7 @@ RectTransform:
   - {fileID: 1620960410}
   - {fileID: 64819706}
   m_Father: {fileID: 1032297242}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1666,8 +1666,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525000184
 MonoBehaviour:
@@ -1681,14 +1681,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9137255, g: 0.30588236, b: 0.3764706, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 22132bf5761f1904b9f7b54a6db9d6bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2257,7 +2257,7 @@ GameObject:
   - component: {fileID: 687912521}
   - component: {fileID: 687912522}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: noteSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2326,8 +2326,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1526885876}
   m_HandleRect: {fileID: 525000183}
   m_Direction: 0
-  m_MinValue: 8
-  m_MaxValue: 68
+  m_MinValue: 18
+  m_MaxValue: 58
   m_WholeNumbers: 1
   m_Value: 38
   m_OnValueChanged:
@@ -3316,9 +3316,9 @@ RectTransform:
   - {fileID: 237739669}
   - {fileID: 1620064936}
   - {fileID: 1833032313}
-  - {fileID: 1283462342}
   - {fileID: 1334892674}
   - {fileID: 456016348}
+  - {fileID: 1283462342}
   - {fileID: 221681828}
   - {fileID: 1519657256}
   m_Father: {fileID: 0}
@@ -4148,7 +4148,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1032297242}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4459,7 +4459,7 @@ Transform:
   - {fileID: 1858092207}
   - {fileID: 1256384869}
   m_Father: {fileID: 1032297242}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1351706222
 GameObject:

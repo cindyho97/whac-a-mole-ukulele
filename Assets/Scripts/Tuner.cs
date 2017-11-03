@@ -20,7 +20,7 @@ public class Tuner : MonoBehaviour {
     private Color32 buttonYellow = new Color32(248, 207, 73, 255);
 
     private int noteValue;
-    private int sliderRange = 30;
+    private int sliderRange = 20;
     public Text noteValueText;
     public Text minValueText;
     public Text maxValueText;
