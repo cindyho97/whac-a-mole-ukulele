@@ -167,4 +167,18 @@ public class Tuner : MonoBehaviour {
             ChangeButtonColor(previousButton, false);
         }
     }
+
+    public void OnContinueButton()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void OnTunerButton()
+    {
+        if (gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+        else { gameObject.SetActive(true); }
+    }
 }
