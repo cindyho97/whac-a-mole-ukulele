@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using System.Linq; // Sorted List --> ElementAt()
 using UnityEngine.UI;
 
 public class NoteManager : MonoBehaviour {
@@ -28,7 +28,7 @@ public class NoteManager : MonoBehaviour {
         };
         eightNotesList = new SortedList<string, int>
         {
-            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"CHigh", 5}
+            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"Ch", 5}
         };
 	}
 	
