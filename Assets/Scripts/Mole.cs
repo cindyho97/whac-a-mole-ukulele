@@ -25,6 +25,7 @@ public class Mole : MonoBehaviour {
 
     private Image moleImage;
     public Sprite moleHit;
+    public Sprite moleInjured;
     private Sprite moleIdle;
 
     public GameObject hammer;
@@ -98,18 +99,23 @@ public class Mole : MonoBehaviour {
         if (transform.position == startingPosition)
         {
             moveDown = false;
+            ChangeMoleSprite("idle");
             currentLerpTime = 0;
             isOutOfHole = false;
         }
     }
 
-    public void ChangeMoleSprite(bool isHitByHammer)
+    public void ChangeMoleSprite(string status)
     {
-        if (isHitByHammer)
+        if (status == "hit")
         {
             moleImage.sprite = moleHit;
         }
-        else
+        else if(status == "injured")
+        {
+            moleImage.sprite = moleInjured;
+        }
+        else if(status == "idle")
         {
             moleImage.sprite = moleIdle;
         }
@@ -129,14 +135,14 @@ public class Mole : MonoBehaviour {
         }
 
         // Change mole sprite
-        ChangeMoleSprite(true);
-        yield return new WaitForSeconds(.5f);
-        ChangeMoleSprite(false);
+        ChangeMoleSprite("hit");
+        yield return new WaitForSeconds(.45f);
+        ChangeMoleSprite("injured");
         hammerScript.SetHammerAnim(false);
         // Move down animation
         moveDown = true;
 
-        // Wait same amount of sec as moveDown animation
+        // Delay of nextMoleTimer
         yield return new WaitForSeconds(lerpTime);
         Managers.MoleManager.startNextMoleT = true;
     }

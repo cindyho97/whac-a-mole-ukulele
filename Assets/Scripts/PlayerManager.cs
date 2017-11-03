@@ -71,7 +71,8 @@ public class PlayerManager : MonoBehaviour  {
         {
             // hit animation
             StartCoroutine(currentMole.MoleHitAnimation());
-            Messenger.Broadcast(GameEvent.UPDATE_SCORE); 
+            Messenger.Broadcast(GameEvent.UPDATE_SCORE);
+            currentMole.playedRightNote = false;
         }
         else
         {
