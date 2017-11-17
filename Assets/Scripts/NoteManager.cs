@@ -24,11 +24,11 @@ public class NoteManager : MonoBehaviour {
     void Start () {
         fourNotesList = new SortedList<string, int>
         {
-            {"C", 102 }, {"E", 63 }, {"G", 38 },
+            {"C", 102 }, {"E", 63 }, {"G", 38 }, {"A", 21}
         };
         eightNotesList = new SortedList<string, int>
         {
-            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 10}, {"Ch", 5}
+            {"C", 102 }, {"D", 81 }, {"E", 63 }, {"F", 54 },  {"G", 38 },  {"A", 23 }, {"B", 9}, {"Ch", 4}
         };
 	}
 	
@@ -148,7 +148,7 @@ public class NoteManager : MonoBehaviour {
     private void CheckNoteInput()
     {
         // Check if there is note input detected
-        if (Managers.SerialRead.CheckNotePlayed())
+        if (Managers.SerialRead.CheckNotePlayed() && !Managers.MoleManager.startNextMoleT) // Mole timer not running  
         {
             Managers.SerialRead.noteDetected = false;
             CheckPlayedNote(randomNote);

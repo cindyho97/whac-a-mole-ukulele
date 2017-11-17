@@ -39,7 +39,8 @@ public class MoleManager : MonoBehaviour {
             ChooseRandomMole();
             MoleAppears();
         }
-
+        
+        // Mole timer running
         if (startNextMoleT)
         {
             StartNextMoleTimer();

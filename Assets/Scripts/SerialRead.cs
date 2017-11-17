@@ -41,26 +41,31 @@ public class SerialRead : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             noteDetected = true;
-            //currentNoteValue = 102;
-            currentNoteValue = 45;
+            currentNoteValue = 102;
+            //currentNoteValue = 45;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             noteDetected = true;
-            //currentNoteValue = 63;
-            currentNoteValue = 20;
+            currentNoteValue = 63;
+            //currentNoteValue = 20;
         }
         else if (Input.GetKeyDown(KeyCode.G))
         {
             noteDetected = true;
             currentNoteValue = 38;
         }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            noteDetected = true;
+            currentNoteValue = 24;
+        }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             databyteRead = true;
             currentNoteValue = 0;
         }
-        //Debug.Log("databyte_in: " + databyte_in);
+
         CheckNotePlayed();  
     }
 

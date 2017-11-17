@@ -56,12 +56,6 @@ public class Mole : MonoBehaviour {
         {
             Hide();
         }
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    hammer.SetActive(true);
-        //    hammerAnim.SetBool("HammerHit", true);
-        //}
     }
 
     // Move up
