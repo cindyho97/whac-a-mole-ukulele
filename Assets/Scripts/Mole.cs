@@ -96,6 +96,7 @@ public class Mole : MonoBehaviour {
             ChangeMoleSprite("idle");
             currentLerpTime = 0;
             isOutOfHole = false;
+            StartCoroutine(SetDefaultNotePlayedColor());
         }
     }
 
@@ -117,6 +118,7 @@ public class Mole : MonoBehaviour {
 
     public IEnumerator MoleHitAnimation()
     {
+        moveUp = false;
         isHitByHammer = true;
         hammer.SetActive(true);
         hammerScript.SetHammerAnim(true);
@@ -136,7 +138,18 @@ public class Mole : MonoBehaviour {
         moveDown = true;
 
         // Delay of nextMoleTimer
-        yield return new WaitForSeconds(lerpTime);
+        //yield return new WaitForSeconds(lerpTime);
+        while (isOutOfHole)
+        {
+            yield return null;
+        }
         Managers.MoleManager.startNextMoleT = true;
+    }
+
+    private IEnumerator SetDefaultNotePlayedColor()
+    {
+        yield return new WaitForSeconds(1);
+        Managers.Note.ChangeNotePlayedColor("yellow");
+        Managers.Note.playedNoteText.text = " ";
     }
 }

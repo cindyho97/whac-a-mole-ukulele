@@ -26,12 +26,7 @@ public class MoleManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    nextMole = true;  
-        //}
+	void FixedUpdate () {
 
         if (nextMole)
         {
@@ -86,7 +81,7 @@ public class MoleManager : MonoBehaviour {
             nextMoleBarObj.SetActive(false);
             startNextMoleT = false;
             nextMole = true;
-            waitTime = timeBeforeNextMole;     
+            waitTime = timeBeforeNextMole; 
         }
     }
 

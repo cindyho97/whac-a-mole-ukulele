@@ -14,6 +14,12 @@ public class NoteManager : MonoBehaviour {
     private Mole currentMole;
     private int previousNr;
 
+    public Text playedNoteText;
+    public Image playedNoteImage;
+    private Color32 blue = new Color32(65, 180, 230, 255);
+    private Color32 red = new Color32(245, 90, 90, 255);
+    private Color32 yellow = new Color32(248, 207, 73, 255);
+
     // Timer
     public bool timerRunning;
     private float totalWaitTime;
@@ -33,7 +39,7 @@ public class NoteManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (timerRunning)
         {
             UpdateTimerBar();
@@ -101,8 +107,10 @@ public class NoteManager : MonoBehaviour {
     public void CheckPlayedNote(string randomNote)
     {
         string notePlayed = Managers.Note.CheckNoteInRange(Managers.SerialRead.currentNoteValue);
-        currentMole.playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
+        playedNoteText.text = notePlayed;
         Debug.Log("played note: " + notePlayed);
+        currentMole.playedRightNote = Managers.Note.CheckRightNote(randomNote, notePlayed);
+        
     }
 
     public string CheckNoteInRange(int noteValue)
@@ -135,11 +143,13 @@ public class NoteManager : MonoBehaviour {
     {
         if(randomNote == notePlayed)
         {
+            ChangeNotePlayedColor("blue");
             Debug.Log("Notes are the same!");
             return true;
         }
         else
         {
+            ChangeNotePlayedColor("red");
             Debug.Log("Note is wrong...");
             return false;
         }
@@ -173,5 +183,21 @@ public class NoteManager : MonoBehaviour {
     {
         timerBar.fillAmount = currentTime / totalWaitTime;
         currentTime -= Time.deltaTime;
+    }
+
+    public void ChangeNotePlayedColor(string color)
+    {
+        switch (color)
+        {
+            case "blue":
+                playedNoteImage.color = blue;
+                break;
+            case "red":
+                playedNoteImage.color = red;
+                break;
+            case "yellow":
+                playedNoteImage.color = yellow;
+                break;
+        }
     }
 }

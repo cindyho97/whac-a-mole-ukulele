@@ -40,10 +40,9 @@ public class PlayerManager : MonoBehaviour  {
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            //Messenger.Broadcast(GameEvent.LEVEL_COMPLETE);
-            LoseLife();
+            OnRestartButton();
         }
     }
     private void LoseLife()
