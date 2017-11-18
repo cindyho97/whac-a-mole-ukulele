@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MoleManager : MonoBehaviour {
 
-    public Mole[] moles;
+    private Mole[] moles;
     public byte nrOfMoles = 5;
     public static Mole currentMole;
     public bool nextMole;

@@ -37,7 +37,7 @@ public class Mole : MonoBehaviour {
     void Start () {
         startingPosition = transform.position;
         // Set end position mole
-        endPosition = new Vector3(startingPosition.x, startingPosition.y+90, startingPosition.z);
+        endPosition = new Vector3(startingPosition.x, startingPosition.y+80, startingPosition.z);
         timerBarObj = timerBar.gameObject.transform.parent.gameObject;
         noteText = timerBarObj.GetComponentInChildren<Text>();
         moleImage = GetComponent<Image>();
@@ -46,7 +46,7 @@ public class Mole : MonoBehaviour {
         hammerScript = hammer.GetComponent<Hammer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     { 
         if (moveUp)
         {
@@ -117,7 +117,6 @@ public class Mole : MonoBehaviour {
 
     public IEnumerator MoleHitAnimation()
     {
-        
         isHitByHammer = true;
         hammer.SetActive(true);
         hammerScript.SetHammerAnim(true);
