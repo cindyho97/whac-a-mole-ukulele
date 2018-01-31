@@ -11,7 +11,7 @@ When the player has zero lives left, the game ends.
 Gameplay video: https://www.youtube.com/edit?o=U&video_id=qykoBwzMkyo
 
 <a href="https://www.youtube.com/watch?feature=player_embedded&v=qykoBwzMkyo" target="_blank">
-<img src="https://user-images.githubusercontent.com/22680257/35644366-0ea0f498-06c9-11e8-98e0-35f56bcf4a46.PNG" 
+<img src="https://user-images.githubusercontent.com/22680257/35645898-c07b5aa6-06cd-11e8-87af-343d49645639.PNG" 
 alt="Screenshot from the gameplay video of the whac-a-mole game" width="500" height="300" border="10"></a>
 <br>
 <br>
