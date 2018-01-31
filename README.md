@@ -6,3 +6,12 @@ The Arduino UNO will detect the notes(frequencies) of the ukelele and the notes 
 Every mole will come out of the hole and if the player plays the right note on the instrument, the mole will be hit and the player gets points.<br>
 If the player plays the wrong note, the player will lose one life.<br>
 When the player has zero lives left, the game ends.
+<br>
+
+Gameplay video: https://www.youtube.com/edit?o=U&video_id=qykoBwzMkyo
+
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=qykoBwzMkyo" target="_blank">
+<img src="https://user-images.githubusercontent.com/22680257/35644366-0ea0f498-06c9-11e8-98e0-35f56bcf4a46.PNG" 
+alt="Screenshot from the gameplay video of the whac-a-mole game" width="500" height="300" border="10"></a>
+<br>
+<br>
